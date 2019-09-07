@@ -1,0 +1,122 @@
+<% include ./hf/header.ejs %>
+<title>Photoss</title>
+
+<div class="page-content header-clear-medium">
+    <div id='cardList'>
+    </div>
+    <div id="footer-menu" class="footer-menu-5-icons footer-menu-style-1">
+            <a href="/main"><i class="fa fa-home"></i><span>Home</span></a>
+            <a href="/connect"><i class="fa fa-star"></i><span>Connect</span></a>
+            <a href="/mypage"><i class="fa fa-heart"></i><span>My page</span></a>
+            <a href="/account" class="active-nav"><i class="fa fa-search"></i><span>Account</span></a>
+            <a href="#" data-menu="menu-settings"><i class="fa fa-cog"></i><span>Settings</span></a>
+            <div class="clear"></div>
+        </div>
+
+    <div class="content-boxed">
+        <div class="footer">
+            <a href="#" class="footer-title uppercase ultrabold"><span class="color-highlight">Photoss</span></a>
+            <p class="footer-text">Experience and customer care is what define Enabled products. Our products and support are unmatched.</p>
+            <div class="footer-socials">
+                <a href="#" class="round-tiny shadow-medium bg-facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="round-tiny shadow-medium bg-twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="round-tiny shadow-medium bg-phone"><i class="fa fa-phone"></i></a>
+                <a href="#" data-menu="menu-share" class="round-tiny shadow-medium bg-red2-dark"><i class="fa fa-share-alt"></i></a>
+                <a href="#" class="back-to-top round-tiny shadow-medium bg-dark1-light"><i class="fa fa-angle-up"></i></a>
+            </div>
+            <div class="clear"></div>
+            <p class="footer-copyright">Copyright &copy; Enabled <span id="copyright-year">2017</span>. All Rights Reserved.</p>
+            <p class="footer-links"><a href="#">Privacy Policy</a> | <a href="#">Terms and Conditions</a> | <a href="#" class="back-to-top"> Back to Top</a></p>
+            <div class="clear"></div>
+        </div>    
+    </div>
+</div>
+<script>
+function logout(){
+    var reply = confirm('로그아웃 하시겠습니까?');
+    if (reply == true) {
+        sessionStorage.clear();
+        window.location.href = "/";
+    } else {
+    }
+}
+</script>
+<script>
+    var jwtToken = sessionStorage.getItem('jwtToken');
+    var currentIp = location.host;
+
+    $.ajax({
+        url: "http://"+currentIp+"/getUser",
+        type: 'POST',
+        headers: {
+            'x-access-token': jwtToken
+        },
+        data: {},
+        success: function (data) {  //server.js에서 response해서 받은 파싱 값 res.json(JSON.parse(body))해서 res_list 가져옴 
+            var resultList = data.res_list;
+            for (var i = 0; i < resultList.length; i++) {
+                var resultElement = resultList[i];
+                $("#cardList").append(
+                '    <div data-height="150" style="height : 150px" class="caption caption-margins round-medium shadow-large">\n' +
+                '        <div class="caption-center right-15 top-15 text-right">\n' +
+                '            <Button onclick="getBalance(\'' + resultElement.fintech_use_num + '\')" class="button button-xs button-round-huge bg-highlight">잔액조회</Button>\n' +
+                '            <Button onclick="mainAccount(\'' + String(i) + '\')" class="button button-xs button-round-huge bg-highlight">주계좌설정</Button>\n' +
+                '        </div>\n' +
+                '        <div class="caption-center left-15 text-left">\n' +
+                '            <h1 class="color-white bolder">' + resultElement.bank_name + '</h1>\n' +
+                '            <p class="under-heading color-white opacity-90 bottom-0">\n' +
+                '                ' + resultElement.account_num_masked +
+                '            </p>\n' +
+                '        </div>\n' +
+                '        <div class="caption-overlay bg-black opacity-70"></div>\n' +
+                '        <div class="caption-bg bg-18"></div>\n' +
+                '    </div>\n'
+                )
+            }
+        },
+        error: function(e){
+            alert(e);
+        }
+    })
+
+    function getBalance(finusenum){
+        var currentIp = location.host;
+        $.ajax({
+            url : "http://"+currentIp+"/getBalance",
+            type : 'get',
+            headers: {
+                'x-access-token': jwtToken
+            },
+            data : {
+                finusernum: finusenum   //fintech_use_num 값을 server.js의 /getBalance로 넘김
+            },
+            success: function(data){
+                data = addComma(data);
+                alert("잔액 : " + data + "원");
+            } 
+        })
+    }
+
+    function addComma(num) {
+        var regexp = /\B(?=(\d{3})+(?!\d))/g;
+        return num.toString().replace(regexp, ',');
+    }
+
+    function mainAccount(i){
+        var currentIp = location.host;
+        $.ajax({
+            url : "http://"+currentIp+"/mainAccount",
+            type : 'get',
+            headers: {
+                'x-access-token': jwtToken
+            },
+            data : {
+                i: i
+            },
+            success: function(data){
+                alert("main account가 변경되었습니다");
+            } 
+        })
+    }
+</script>
+<% include ./hf/footer.ejs %>

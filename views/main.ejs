@@ -1,0 +1,379 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, viewport-fit=cover" />
+<title>Photoss</title>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i|Source+Sans+Pro:300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="styles/style.css">
+<link rel="stylesheet" type="text/css" href="styles/framework.css">
+<link rel="stylesheet" type="text/css" href="fonts/css/fontawesome-all.min.css">    
+</head>
+<script src="/socket.io/socket.io.js"></script>
+<body class="theme-light" data-background="none" data-highlight="blue2">
+        
+<div id="page">
+    <div id="page-preloader">
+        <div class="loader-main"><div class="preload-spinner border-highlight"></div></div>
+    </div>
+    
+    <div class="header header-fixed header-logo-app" style="padding-right: 30px">
+        <a id='mainTag' href="/main" class="header-title">Photoss</a>
+        <a href="#" class="back-button header-icon header-icon-1"><i class="fas fa-arrow-left"></i></a>
+        <a onclick="logout();" class="header-icon header-icon-2"><img src="images/icons/exit.png" style="width:20px; height: 33px; padding-top: 14px"></a>
+        <a href="#" data-toggle-theme-switch class="header-icon header-icon-3"><i class="fas fa-moon"></i></a>
+    </div>
+    
+    <div id="footer-menu" class="footer-menu-5-icons footer-menu-style-1">
+            <a href="/main" class="active-nav"><i class="fa fa-home"></i><span>Home</span></a>
+            <a href="/connect"><i class="fa fa-star"></i><span>Connect</span></a>
+            <a href="/mypage"><i class="fa fa-heart"></i><span>My page</span></a>
+            <a href="/account"><i class="fa fa-search"></i><span>Account</span></a>
+            <a href="#" data-menu="menu-settings"><i class="fa fa-cog"></i><span>Settings</span></a>
+            <div class="clear"></div>
+    </div>
+    
+    <div id="menu-bookmarks" class="menu menu-box-bottom menu-box-detached round-medium"
+         data-menu-height="408"
+         data-menu-effect="menu-over">
+        <div class="content bottom-0">
+            <div class="menu-bookmark-item top-20">
+                <img src="images/pictures/8s.jpg" alt="img">
+                <strong>Macbooks are Awesome</strong>
+                <span>
+                    Typewriters are slowly coming back to style.
+                </span>
+                <em class="color-blue-dark"><i class="fa fa-eye"></i> Read Now</em>
+            </div>            
+            <div class="menu-bookmark-item">
+                <img src="images/pictures/7s.jpg" alt="img">
+                <strong>Coffee is a Must</strong>
+                <span>
+                    A great way to start a day, is a with a coffee!
+                </span>
+                <em class="color-blue-dark"><i class="fa fa-eye"></i> Read Now</em>
+            </div>   
+            <div class="menu-bookmark-item bottom-0">
+                <img src="images/pictures/9s.jpg" alt="img">
+                <strong>The Most Beautiful Camera</strong>
+                <span>
+                    The most elegant design a camera has ever had..
+                </span>
+                <em class="color-blue-dark"><i class="fa fa-eye"></i> Read Now</em>
+            </div>
+            <div class="divider bottom-20"></div>
+            <a href="#" class="button bg-highlight button-m button-round-medium shadow-huge button-full top-15 bottom-0">View More Bookmarks</a>
+        </div>
+    </div>     
+    
+   <div class="page-content header-clear-medium">
+        <link rel="stylesheet" type="text/css" href="styles/blog.css">
+        
+        <div class="content-boxed">
+            <div class="footer" style="text-align: center;">
+                <form id='fileUploadForm'>
+                <img id="frame" style="width:100%">
+                <input id="File" type="file" name="myFile" accept="image/*" >
+                <label for="camera"><img src="images/icons/upload.png" style="display: block; margin: 0 auto; width:30px; height: 30px;"></label>
+                <input type="button" value="upload" id="camera" style="opacity: 0;position: absolute;z-index: -1;" >
+                    </form>
+                <br>
+            </div>    
+        </div>
+
+        <div class="content-boxed">
+            <div class="footer">
+                <a href="#" class="footer-title uppercase ultrabold"><span class="color-highlight">Photoss</span></a>
+                <p class="footer-text">Experience and customer care is what define Enabled products. Our products and support are unmatched.</p>
+                <div class="footer-socials">
+                    <a href="#" class="round-tiny shadow-medium bg-facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="round-tiny shadow-medium bg-twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="round-tiny shadow-medium bg-phone"><i class="fa fa-phone"></i></a>
+                    <a href="#" data-menu="menu-share" class="round-tiny shadow-medium bg-red2-dark"><i class="fa fa-share-alt"></i></a>
+                    <a href="#" class="back-to-top round-tiny shadow-medium bg-dark1-light"><i class="fa fa-angle-up"></i></a>
+                </div>
+                <div class="clear"></div>
+                <p class="footer-copyright">Copyright &copy; Enabled <span id="copyright-year">2017</span>. All Rights Reserved.</p>
+                <p class="footer-links"><a href="#">Privacy Policy</a> | <a href="#">Terms and Conditions</a> | <a href="#" class="back-to-top"> Back to Top</a></p>
+                <div class="clear"></div>
+            </div>    
+        </div>
+    </div>
+    <!--Menu Settings-->
+    <div id="menu-settings" class="menu menu-box-bottom menu-box-detached round-large" data-menu-height="310" data-menu-effect="menu-over">
+        <div class="content bottom-0">
+            <div class="menu-title"><h1>Settings</h1><p class="color-highlight">Flexible and Easy to Use</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+            <div class="divider bottom-20"></div>
+            <div class="toggle-with-icon">
+                <i class="toggle-icon round-tiny fa fa-moon bg-red2-dark color-white"></i>
+                <a href="#" class="toggle-switch toggle-ios toggle-off" 
+                   data-toggle-theme
+                   data-toggle-height="27"
+                   data-toggle-width="50"
+                   data-toggle-content="toggle-content-1"
+                   data-toggle-checkbox="toggle-checkbox-1"
+                   data-bg-on="bg-green1-dark" 
+                   data-bg-off="">
+                    <span class="color-theme regularbold font-13">Dark Mode</span>
+                    <strong></strong>
+                    <u></u>
+                </a>    
+            </div>     
+            <div class="divider top-25 bottom-0"></div>
+            <div class="link-list link-list-2 link-list-long-border">
+                <a href="#" data-menu="menu-highlights">
+                    <i class="fa fa-tint bg-green1-dark color-white round-tiny"></i>
+                    <span>Page Highlight</span>
+                    <strong>16 Color Highlights Included</strong>
+                    <em class="bg-highlight">HOT</em>
+                </a>    
+                <a href="#" data-menu="menu-backgrounds" class="no-border">
+                    <i class="fa fa-brush bg-blue2-dark color-white round-tiny"></i>
+                    <span>Page Background</span>
+                    <strong>10 Page Gradients Included</strong>
+                    <em class="bg-highlight">NEW</em>
+                </a>      
+            </div>
+        </div> 
+        
+    </div>    
+    <!--Menu Settings Highlights-->
+    <div id="menu-highlights" class="menu menu-box-bottom menu-box-detached round-large" data-menu-height="380" data-menu-effect="menu-over">
+        <div class="content bottom-0">
+            <div class="menu-title"><h1>Highlights</h1><p class="color-highlight">Any Element can have a Highlight Color</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+            <div class="divider bottom-0"></div>
+            <div class="highlight-changer bottom-30">
+                <a href="#" data-change-highlight="blue2"><i class="fa fa-circle color-blue2-dark"></i><span class="color-blue2-light">Default</span></a>
+                <a href="#" data-change-highlight="red1"><i class="fa fa-circle color-red1-dark"></i><span class="color-red2-light">Red</span></a>    
+                <a href="#" data-change-highlight="orange"><i class="fa fa-circle color-orange-dark"></i><span class="color-orange-light">Orange</span></a>    
+                <a href="#" data-change-highlight="pink2"><i class="fa fa-circle color-pink2-dark"></i><span class="color-pink2-light">Pink</span></a>    
+                <a href="#" data-change-highlight="magenta2"><i class="fa fa-circle color-magenta2-dark"></i><span class="color-magenta2-light">Purple</span></a>    
+                <a href="#" data-change-highlight="aqua"><i class="fa fa-circle color-aqua-dark"></i><span class="color-aqua-light">Aqua</span></a>      
+                <a href="#" data-change-highlight="teal"><i class="fa fa-circle color-teal-dark"></i><span class="color-teal-light">Teal</span></a>      
+                <a href="#" data-change-highlight="mint"><i class="fa fa-circle color-mint-dark"></i><span class="color-mint-light">Mint</span></a>      
+                <a href="#" data-change-highlight="green2"><i class="fa fa-circle color-green2-dark"></i><span class="color-green2-light">Green</span></a>    
+                <a href="#" data-change-highlight="green1"><i class="fa fa-circle color-green1-dark"></i><span class="color-green1-light">Grass</span></a>       
+                <a href="#" data-change-highlight="yellow2"><i class="fa fa-circle color-yellow2-dark"></i><span class="color-yellow2-light">Sunny</span></a>    
+                <a href="#" data-change-highlight="yellow1"><i class="fa fa-circle color-yellow1-dark"></i><span class="color-yellow1-light">Goldish</span></a>
+                <a href="#" data-change-highlight="brown1"><i class="fa fa-circle color-brown1-dark"></i><span class="color-brown1-light">Wood</span></a>    
+                <a href="#" data-change-highlight="dark1"><i class="fa fa-circle color-dark1-dark"></i><span class="color-dark1-light">Night</span></a>
+                <a href="#" data-change-highlight="dark2"><i class="fa fa-circle color-dark2-dark"></i><span class="color-dark2-light">Dark</span></a>
+                <div class="clear"></div>
+            </div>
+            <a href="#" data-menu="menu-settings" class="button button-s button-full button-m button-round-large bg-highlight shadow-large">Back to Settings</a>
+        </div>
+    </div>    
+    <!-- Menu Settings Backgrounds-->
+    <div id="menu-backgrounds" class="menu menu-box-bottom menu-box-detached round-large" data-menu-height="310" data-menu-effect="menu-over">
+        <div class="content">
+            <div class="menu-title"><h1>Backgrounds</h1><p class="color-highlight">Change Page Color Behind Content Boxes</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+            <div class="divider bottom-0"></div>
+            <div class="background-changer bottom-30">
+                <a href="#" data-change-background="none"><i class="bg-theme"></i><span>Default</span></a>
+                <a href="#" data-change-background="plum"><i class="body-plum"></i><span class="color-plum-dark">Plum</span></a>
+                <a href="#" data-change-background="magenta3"><i class="body-magenta3"></i><span class="color-magenta3-dark">Magenta</span></a>
+                <a href="#" data-change-background="dark3"><i class="body-dark3"></i><span class="color-dark3-dark">Dark</span></a>
+                <a href="#" data-change-background="violet"><i class="body-violet"></i><span class="color-violet-dark">Violet</span></a>
+                <a href="#" data-change-background="red3"><i class="body-red3"></i><span class="color-red3-dark">Red</span></a>
+                <a href="#" data-change-background="green3"><i class="body-green3"></i><span class="color-green3-dark">Green</span></a>
+                <a href="#" data-change-background="sky"><i class="body-sky"></i><span class="color-sky-dark">Sky</span></a>
+                <a href="#" data-change-background="pumpkin"><i class="body-pumpkin"></i><span class="color-pumpkin-dark">Orange</span></a>
+                <a href="#" data-change-background="yellow3"><i class="body-yellow3"></i><span class="color-yellow3-dark">Yellow</span></a>
+                <div class="clear"></div>
+            </div>
+            <a href="#" data-menu="menu-settings" class="button button-s button-full button-m button-round-large bg-highlight shadow-large">Back to Settings</a>
+        </div>
+    </div>
+    <!-- Menu Share-->
+    <div id="menu-share" class="menu menu-box-bottom menu-box-detached round-large" data-menu-height="340" data-menu-effect="menu-over">
+        <div class="menu-title"><h1>Share the Love</h1><p class="color-highlight">Just Tap the Social Icon. We'll add the Link</p><a href="#" class="close-menu"><i class="fa fa-times"></i></a></div>
+        <div class="link-list link-list-1 content bottom-0">
+            <a href="#" class="shareToFacebook">
+                <i class="font-18 fab fa-facebook color-facebook"></i>
+                <span class="font-13">Facebook</span>
+                <i class="fa fa-angle-right"></i>
+            </a>
+            <a href="#" class="shareToTwitter">
+                <i class="font-18 fab fa-twitter-square color-twitter"></i>
+                <span class="font-13">Twitter</span>
+                <i class="fa fa-angle-right"></i>
+            </a>
+            <a href="#" class="shareToLinkedIn">
+                <i class="font-18 fab fa-linkedin color-linkedin"></i>
+                <span class="font-13">LinkedIn</span>
+                <i class="fa fa-angle-right"></i>
+            </a>        
+            <a href="#" class="shareToWhatsApp">
+                <i class="font-18 fab fa-whatsapp-square color-whatsapp"></i>
+                <span class="font-13">WhatsApp</span>
+                <i class="fa fa-angle-right"></i>
+            </a>   
+            <a href="#" class="shareToMail no-border">
+                <i class="font-18 fa fa-envelope-square color-mail"></i>
+                <span class="font-13">Email</span>
+                <i class="fa fa-angle-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="menu-hider"></div>
+</div>
+
+<script type="text/javascript" src="scripts/jquery.js"></script>
+<script type="text/javascript" src="scripts/plugins.js"></script>
+<script type="text/javascript" src="scripts/custom.js"></script>
+<script>
+
+</script>
+<script>
+  
+var qs = getQueryStringObject();
+if(qs.isFace == "false"){
+    alert("얼굴인식에 실패했습니다.\n다른 사진을 넣어주세요.");
+    window.location.href = '/main';
+}
+else if(qs.isUser == "false"){
+    alert("회원이 아닙니다.");
+    window.location.href = '/main';
+}
+else if(qs.isFile == "false"){
+    alert("파일을 업로드해주세요");
+    window.location.href = '/main';
+}
+
+function getQueryStringObject() {
+    var a = window.location.search.substr(1).split('&');
+    if (a == "") return {};
+    var b = {};
+    for (var i = 0; i < a.length; ++i) {
+        var p = a[i].split('=', 2);
+        if (p.length == 1)
+            b[p[0]] = "";
+        else
+            b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+    }
+    return b;
+}
+</script>
+<script>
+
+var socket = io();
+socket.on('message', function (msg) {
+    console.log(msg)
+    var result = confirm('승인하시겠습니까?');
+    socket.emit('reMessage', result);
+})
+// socket.on('locate',function (data){
+//     window.location.href='/'
+// })
+
+//소켓 부분
+var camera = document.getElementById('camera');
+var frame = document.getElementById('frame');
+
+camera.addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    // Do something with the image file.
+    frame.src = URL.createObjectURL(file);
+})
+</script>
+<script>
+function logout(){
+    var reply = confirm('로그아웃 하시겠습니까?');
+    if (reply == true) {
+        sessionStorage.clear();
+        window.location.href = "/";
+    } else {
+    }
+}
+</script>
+<script>
+$("#camera").click(function (event) {      
+    //preventDefault 는 기본으로 정의된 이벤트를 작동하지 못하게 하는 메서드이다. submit을 막음
+    var jwtToken = sessionStorage.getItem('jwtToken');
+    // disabled the submit button
+    var form = $('#fileUploadForm')[0];
+    // Create an FormData object 
+    var data = new FormData(form);
+    var currentIp = location.host;
+
+    $.ajax({
+        type: "POST",
+        async: false,
+        // enctype: 'multipart/form-data',
+        url: "http://"+currentIp+"/uploadfile",
+        enctype: 'multipart/form-data',
+        headers: {
+        'x-access-token': jwtToken
+        },
+        data: data,
+        async: true,
+        processData: false,
+        contentType: false,
+        //timeout: 600000,
+
+        beforeSend: function () {
+            var width = 0;
+            var height = 0;
+            var left = 0;
+            var top = 0;
+
+            width = 50;
+            height = 50;
+            top = ( $(window).height() - height ) / 2 + $(window).scrollTop();
+            left = ( $(window).width() - width ) / 2 + $(window).scrollLeft();
+
+            if($("#div_ajax_load_image").length != 0) {
+                $("#div_ajax_load_image").css({
+                    "top": top+"px",
+                    "left": left+"px"
+                });
+                $("#div_ajax_load_image").show();
+            }
+            else {
+                $('body').append('<div id="div_ajax_load_image" style="position:absolute; top:' + top + 'px; left:' + left + 'px; width:' + width + 'px; height:' + height + 'px; z-index:9999; background:#f0f0f0; filter:alpha(opacity=50); opacity:alpha*0.5; margin:auto; padding:0; "><img src="images/icons/loading.gif" style="width:50px; height:50px;"></div>');
+            }
+        },
+        complete: function () {
+            $("#div_ajax_load_image").hide();
+        },
+        success: function (data) {
+            jQuery("#loading-mask").fadeOut();
+            if(data.isFace == false){
+                window.location.href  = '/main?isFace=false'
+            }
+            else if(data.isUser == false){
+                window.location.href = '/main?isUser=false'
+            }
+            else{
+                var receiverName=data.receiver.name;
+                var receiverBank=data.receiver.bank;
+                var receiverAccount= data.receiver.account;
+                var senderName= data.sender.name;
+                var senderBank= data.sender.bank;
+                var senderAccount=data.sender.account;
+                var senderUrl = data.senderUrl;
+                var url = data.url;
+ 
+                socket.emit('message special user', { hello: 'world' });
+                socket.on('locate',function (){
+                    window.location.href=
+                    '/remit?receiverName='+data.receiver.name +
+                    '&receiverBank='+data.receiver.bank +
+                    '&receiverAccount='+data.receiver.account+
+                    '&senderName='+data.sender.name+
+                    '&senderBank='+data.sender.bank+
+                    '&senderAccount='+data.sender.account+
+                    '&senderUrl='+data.senderUrl+
+                    '&url='+data.url;
+                })
+            }
+        },
+        error: function (e) {
+            alert("업로드 실패");
+        }
+    });
+});
+</script>
+</body>
